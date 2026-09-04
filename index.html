@@ -54,15 +54,15 @@
 <body>
 <div class="wrap">
   <h1>XMD Wellness — Patient Support Performance</h1>
-  <div class="sub">Aug 28–Sep 3, 2026 · Voice · Email · XMD Wellness · Central Time · <b id="hdrStamp">updated 10:04am CDT</b></div>
+  <div class="sub">Aug 28–Sep 3, 2026 · Voice · Email · XMD Wellness · Central Time · <b id="hdrStamp">updated 10:20am CDT</b></div>
   
   <div id="pane-sum">
 
   <div class="sec" style="border-color:var(--amb);">Today so far · Fri Sep 04 <span style="font-weight:400;color:var(--amb);font-size:13px;">— in progress</span></div>
   <div class="grid kpis">
     <div class="card"><div class="k">Voice — calls</div><div class="v" id="tvV">1</div><div class="n" id="tvVn">as of ~3a CT</div></div>
-    <div class="card"><div class="k">Email — received</div><div class="v" id="keREC">2</div><div class="n" id="keLat">as of ~8:30a CT</div></div>
-    <div class="card"><div class="k">Email — open backlog</div><div class="v">0</div><div class="n">as of ~8:30a CT</div></div>
+    <div class="card"><div class="k">Email — received</div><div class="v" id="keREC">7</div><div class="n" id="keLat">as of ~9:30a CT</div></div>
+    <div class="card"><div class="k">Email — open backlog</div><div class="v">1</div><div class="n">as of ~9:30a CT</div></div>
     
   </div>
 
@@ -108,12 +108,12 @@
     <div><div class="lbl" style="margin-top:0;">Inbound Volume by Day</div><div class="cbox"><canvas id="c1"></canvas></div></div>
     <div><div class="lbl" style="margin-top:0;">Answered ≤30s by Day (Target 80%)</div><div class="cbox"><canvas id="c2"></canvas></div></div>
   </div>
-  <div class="note">* partial day — voice to <span id="vLat2">~3a CT</span> · email to <span class="eLat">~8:30a CT</span></div>
+  <div class="note">* partial day — voice to <span id="vLat2">~3a CT</span> · email to <span class="eLat">~9:30a CT</span></div>
 
-  <div class="sec">Email <span style="font-weight:400;color:var(--mut);font-size:12px;" id="eStamp">· updated through ~8:30a CT</span></div>
+  <div class="sec">Email <span style="font-weight:400;color:var(--mut);font-size:12px;" id="eStamp">· updated through ~9:30a CT</span></div>
   <div class="grid kpis">
-    <div class="card"><div class="k">Received</div><div class="v" id="keREC2">2</div><div class="n">Fri Sep 04 so far</div></div>
-    <div class="card"><div class="k">Resolved</div><div class="v" id="keRES">5</div><div class="n">Fri Sep 04 so far</div></div>
+    <div class="card"><div class="k">Received</div><div class="v" id="keREC2">7</div><div class="n">Fri Sep 04 so far</div></div>
+    <div class="card"><div class="k">Resolved</div><div class="v" id="keRES">9</div><div class="n">Fri Sep 04 so far</div></div>
     <!-- FRT stays on the MATURED window (d0..yesterday), NOT today: a ticket created an hour ago has not
          had 4 hours to be replied to, so scoring today understates it badly and build_dashboards' frt
          query deliberately stops at mature_end. Today would read "—" forever. -->
@@ -140,10 +140,10 @@
       <tr><td>Wed 9/2</td><td>56</td><td>61</td><td class="grn">-5</td><td class="grn">98%</td></tr>
       <tr><td>Thu 9/3</td><td>53</td><td>71</td><td class="grn">-18</td><td class="grn">98%</td></tr>
       <tr class="tot"><td>Aug 28–Sep 3</td><td>307</td><td>339</td><td>-32</td><td class="grn">96%</td></tr>
-      <tr class="amb" id="eTodayRow"><td>Fri 9/4*</td><td>2</td><td>5</td><td>-3</td><td>—</td></tr>
+      <tr class="amb" id="eTodayRow"><td>Fri 9/4*</td><td>7</td><td>9</td><td>-2</td><td>—</td></tr>
     </tbody>
   </table>
-  <div class="note">* partial day — email to <span class="eLat">~8:30a CT</span></div>
+  <div class="note">* partial day — email to <span class="eLat">~9:30a CT</span></div>
 
   
 
@@ -176,6 +176,66 @@
 
   
 
+  
+  <div class="sec">Reasons for Contact <span id="rfcHdr" style="font-weight:400;color:var(--mut);font-size:12px;"></span></div>
+  <div class="winrow" role="tablist">
+    <button type="button" class="winbtn active" data-w="7d">Last 7 days</button>
+    <button type="button" class="winbtn" data-w="14d">Last 14 days</button>
+    <button type="button" class="winbtn" data-w="30d">Last 30 days</button>
+    <button type="button" class="winbtn" data-w="mtd">Month to date</button>
+  </div>
+  <div class="grid kpis" id="rfcKpi"></div>
+  <div class="lbl">Reasons for Contact <span style="font-weight:400;color:var(--mut);">— share of analyzed calls</span></div>
+  <table>
+    <thead><tr><th>Topic</th><th>Calls</th><th>Share</th></tr></thead>
+    <tbody id="rfcTbl"></tbody>
+  </table>
+  <div class="note" id="rfcNote"></div>
+  <script>
+  (function(){
+    var DAILY = {"2026-07-27":{"answered":180,"categorized":134,"topics":{"Scheduling":30,"Order status":64,"Cancellation":36,"Refund":10,"Medication":18,"Labs":11,"Refill / intake":31,"Provider no-show":0}},"2026-07-22":{"answered":132,"categorized":90,"topics":{"Scheduling":24,"Order status":39,"Cancellation":22,"Refund":11,"Medication":24,"Labs":8,"Refill / intake":24,"Provider no-show":0}},"2026-07-21":{"answered":143,"categorized":103,"topics":{"Scheduling":21,"Order status":34,"Cancellation":34,"Refund":17,"Medication":24,"Labs":2,"Refill / intake":21,"Provider no-show":1}},"2026-07-23":{"answered":133,"categorized":98,"topics":{"Scheduling":19,"Order status":39,"Cancellation":27,"Refund":9,"Medication":15,"Labs":5,"Refill / intake":31,"Provider no-show":1}},"2026-07-20":{"answered":179,"categorized":130,"topics":{"Scheduling":27,"Order status":42,"Cancellation":42,"Refund":16,"Medication":25,"Labs":8,"Refill / intake":27,"Provider no-show":0}},"2026-07-24":{"answered":108,"categorized":81,"topics":{"Scheduling":27,"Order status":30,"Cancellation":25,"Refund":14,"Medication":16,"Labs":8,"Refill / intake":19,"Provider no-show":0}},"2026-07-28":{"answered":149,"categorized":101,"topics":{"Scheduling":22,"Order status":43,"Cancellation":33,"Refund":17,"Medication":25,"Labs":7,"Refill / intake":22,"Provider no-show":0}},"2026-07-29":{"answered":143,"categorized":104,"topics":{"Scheduling":33,"Order status":45,"Cancellation":36,"Refund":19,"Medication":20,"Labs":7,"Refill / intake":16,"Provider no-show":1}},"2026-07-31":{"answered":114,"categorized":86,"topics":{"Scheduling":16,"Order status":34,"Cancellation":28,"Refund":12,"Medication":15,"Labs":5,"Refill / intake":18,"Provider no-show":0}},"2026-07-30":{"answered":120,"categorized":83,"topics":{"Scheduling":13,"Order status":38,"Cancellation":25,"Refund":13,"Medication":13,"Labs":7,"Refill / intake":20,"Provider no-show":0}},"2026-08-02":{"answered":45,"categorized":34,"topics":{"Scheduling":4,"Order status":11,"Cancellation":12,"Refund":6,"Medication":5,"Labs":4,"Refill / intake":8,"Provider no-show":0}},"2026-08-03":{"answered":151,"categorized":105,"topics":{"Scheduling":24,"Order status":47,"Cancellation":29,"Refund":11,"Medication":20,"Labs":3,"Refill / intake":20,"Provider no-show":0}},"2026-08-04":{"answered":184,"categorized":126,"topics":{"Scheduling":24,"Order status":60,"Cancellation":30,"Refund":14,"Medication":16,"Labs":7,"Refill / intake":17,"Provider no-show":1}},"2026-08-05":{"answered":167,"categorized":133,"topics":{"Scheduling":30,"Order status":63,"Cancellation":25,"Refund":12,"Medication":21,"Labs":5,"Refill / intake":25,"Provider no-show":1}},"2026-08-07":{"answered":126,"categorized":91,"topics":{"Scheduling":17,"Order status":51,"Cancellation":10,"Refund":7,"Medication":20,"Labs":8,"Refill / intake":25,"Provider no-show":0}},"2026-08-06":{"answered":133,"categorized":93,"topics":{"Scheduling":18,"Order status":45,"Cancellation":27,"Refund":14,"Medication":19,"Labs":4,"Refill / intake":13,"Provider no-show":0}},"2026-08-08":{"answered":71,"categorized":47,"topics":{"Scheduling":5,"Order status":33,"Cancellation":8,"Refund":10,"Medication":9,"Labs":5,"Refill / intake":9,"Provider no-show":0}},"2026-08-09":{"answered":51,"categorized":38,"topics":{"Scheduling":5,"Order status":15,"Cancellation":10,"Refund":5,"Medication":2,"Labs":4,"Refill / intake":4,"Provider no-show":0}},"2026-08-10":{"answered":172,"categorized":129,"topics":{"Scheduling":32,"Order status":63,"Cancellation":29,"Refund":15,"Medication":22,"Labs":7,"Refill / intake":33,"Provider no-show":1}},"2026-08-11":{"answered":148,"categorized":106,"topics":{"Scheduling":25,"Order status":49,"Cancellation":25,"Refund":15,"Medication":14,"Labs":6,"Refill / intake":18,"Provider no-show":0}},"2026-08-12":{"answered":146,"categorized":109,"topics":{"Scheduling":20,"Order status":50,"Cancellation":28,"Refund":13,"Medication":15,"Labs":6,"Refill / intake":20,"Provider no-show":0}},"2026-08-13":{"answered":133,"categorized":101,"topics":{"Scheduling":16,"Order status":56,"Cancellation":26,"Refund":17,"Medication":21,"Labs":2,"Refill / intake":25,"Provider no-show":0}},"2026-08-14":{"answered":161,"categorized":117,"topics":{"Scheduling":29,"Order status":53,"Cancellation":28,"Refund":18,"Medication":17,"Labs":3,"Refill / intake":16,"Provider no-show":0}},"2026-08-16":{"answered":61,"categorized":39,"topics":{"Scheduling":7,"Order status":15,"Cancellation":12,"Refund":7,"Medication":7,"Labs":1,"Refill / intake":8,"Provider no-show":0}},"2026-08-15":{"answered":56,"categorized":39,"topics":{"Scheduling":5,"Order status":18,"Cancellation":10,"Refund":5,"Medication":6,"Labs":5,"Refill / intake":6,"Provider no-show":0}},"2026-08-17":{"answered":181,"categorized":133,"topics":{"Scheduling":26,"Order status":68,"Cancellation":24,"Refund":13,"Medication":22,"Labs":9,"Refill / intake":22,"Provider no-show":1}},"2026-08-18":{"answered":154,"categorized":116,"topics":{"Scheduling":21,"Order status":64,"Cancellation":29,"Refund":12,"Medication":19,"Labs":5,"Refill / intake":14,"Provider no-show":0}},"2026-08-19":{"answered":191,"categorized":145,"topics":{"Scheduling":26,"Order status":66,"Cancellation":38,"Refund":28,"Medication":21,"Labs":10,"Refill / intake":34,"Provider no-show":0}},"2026-08-20":{"answered":154,"categorized":106,"topics":{"Scheduling":18,"Order status":61,"Cancellation":28,"Refund":12,"Medication":21,"Labs":9,"Refill / intake":14,"Provider no-show":0}},"2026-08-21":{"answered":151,"categorized":111,"topics":{"Scheduling":25,"Order status":52,"Cancellation":27,"Refund":15,"Medication":17,"Labs":4,"Refill / intake":27,"Provider no-show":0}},"2026-08-22":{"answered":50,"categorized":40,"topics":{"Scheduling":11,"Order status":16,"Cancellation":10,"Refund":6,"Medication":8,"Labs":3,"Refill / intake":12,"Provider no-show":0}},"2026-08-23":{"answered":35,"categorized":27,"topics":{"Scheduling":8,"Order status":8,"Cancellation":11,"Refund":6,"Medication":3,"Labs":0,"Refill / intake":7,"Provider no-show":0}},"2026-08-24":{"answered":205,"categorized":134,"topics":{"Scheduling":24,"Order status":61,"Cancellation":37,"Refund":21,"Medication":24,"Labs":10,"Refill / intake":23,"Provider no-show":1}},"2026-08-25":{"answered":126,"categorized":97,"topics":{"Scheduling":18,"Order status":35,"Cancellation":28,"Refund":18,"Medication":18,"Labs":5,"Refill / intake":23,"Provider no-show":0}},"2026-08-26":{"answered":123,"categorized":97,"topics":{"Scheduling":12,"Order status":52,"Cancellation":19,"Refund":15,"Medication":18,"Labs":4,"Refill / intake":29,"Provider no-show":0}},"2026-08-27":{"answered":117,"categorized":93,"topics":{"Scheduling":19,"Order status":50,"Cancellation":24,"Refund":12,"Medication":20,"Labs":7,"Refill / intake":20,"Provider no-show":0}},"2026-08-28":{"answered":136,"categorized":102,"topics":{"Scheduling":23,"Order status":45,"Cancellation":26,"Refund":13,"Medication":21,"Labs":6,"Refill / intake":38,"Provider no-show":0}},"2026-08-29":{"answered":50,"categorized":33,"topics":{"Scheduling":4,"Order status":14,"Cancellation":7,"Refund":4,"Medication":6,"Labs":0,"Refill / intake":8,"Provider no-show":1}},"2026-08-30":{"answered":41,"categorized":27,"topics":{"Scheduling":6,"Order status":11,"Cancellation":9,"Refund":3,"Medication":3,"Labs":4,"Refill / intake":6,"Provider no-show":0}},"2026-08-31":{"answered":158,"categorized":122,"topics":{"Scheduling":25,"Order status":57,"Cancellation":43,"Refund":30,"Medication":16,"Labs":4,"Refill / intake":21,"Provider no-show":1}},"2026-09-01":{"answered":149,"categorized":101,"topics":{"Scheduling":21,"Order status":45,"Cancellation":25,"Refund":12,"Medication":18,"Labs":1,"Refill / intake":27,"Provider no-show":0}},"2026-09-02":{"answered":119,"categorized":89,"topics":{"Scheduling":16,"Order status":42,"Cancellation":29,"Refund":14,"Medication":20,"Labs":3,"Refill / intake":17,"Provider no-show":0}},"2026-09-03":{"answered":139,"categorized":111,"topics":{"Scheduling":22,"Order status":49,"Cancellation":23,"Refund":15,"Medication":26,"Labs":5,"Refill / intake":28,"Provider no-show":0}},"2026-07-26":{"answered":43,"categorized":34,"topics":{"Scheduling":7,"Order status":11,"Cancellation":9,"Refund":5,"Medication":3,"Labs":1,"Refill / intake":12,"Provider no-show":0}},"2026-07-25":{"answered":58,"categorized":42,"topics":{"Scheduling":14,"Order status":21,"Cancellation":4,"Refund":6,"Medication":10,"Labs":1,"Refill / intake":9,"Provider no-show":1}},"2026-09-04":{"answered":1,"categorized":1,"topics":{"Scheduling":0,"Order status":1,"Cancellation":0,"Refund":0,"Medication":0,"Labs":0,"Refill / intake":0,"Provider no-show":0}},"2026-08-01":{"answered":51,"categorized":37,"topics":{"Scheduling":13,"Order status":14,"Cancellation":6,"Refund":4,"Medication":8,"Labs":3,"Refill / intake":7,"Provider no-show":0}}};
+    var TOPIC_ORDER = ["Order status","Cancellation","Scheduling","Medication","Refund","Refill / intake","Labs","Provider no-show"];
+    var dates = Object.keys(DAILY).sort();
+    if(!dates.length) return;
+    var today = new Date(dates[dates.length-1]+'T12:00:00');
+    var yesterday = new Date(today); yesterday.setDate(yesterday.getDate()-1);
+    function isoDaysBack(end, n){ var out=[]; for(var i=0;i<n;i++){ var d=new Date(end); d.setDate(d.getDate()-i); out.push(d.toISOString().slice(0,10)); } return out; }
+    function monthToDate(end){ var out=[]; var d=new Date(end.getFullYear(), end.getMonth(), 1); while(d<=end){ out.push(d.toISOString().slice(0,10)); d.setDate(d.getDate()+1); } return out; }
+    var WINDOWS = {
+      "7d": isoDaysBack(yesterday, 7), "14d": isoDaysBack(yesterday, 14), "30d": isoDaysBack(yesterday, 30),
+      "mtd": monthToDate(today)
+    };
+    var WINLABEL = {"7d":"Last 7 days","14d":"Last 14 days","30d":"Last 30 days","mtd":"Month to date"};
+    var curWin = "7d";
+    function fmt(n){ n=Math.round(n||0); return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+    function sumWindow(winKey){
+      var days = WINDOWS[winKey];
+      var out = {answered:0, categorized:0, topics:{}}; var have=0;
+      TOPIC_ORDER.forEach(function(t){ out.topics[t]=0; });
+      days.forEach(function(d){ var row=DAILY[d]; if(!row) return; have++;
+        out.answered += row.answered||0; out.categorized += row.categorized||0;
+        TOPIC_ORDER.forEach(function(t){ out.topics[t] += (row.topics && row.topics[t]) || 0; }); });
+      out._have=have; out._req=days.length; return out;
+    }
+    function render(){
+      document.querySelectorAll('.winbtn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-w')===curWin); });
+      var w = sumWindow(curWin);
+      document.getElementById('rfcHdr').textContent = '· ' + WINLABEL[curWin] + (w._have<w._req ? ' (' + w._have + ' of ' + w._req + ' days available)' : '');
+      var topReason = TOPIC_ORDER.slice().sort(function(a,b){ return w.topics[b]-w.topics[a]; })[0];
+      document.getElementById('rfcKpi').innerHTML =
+        '<div class="card"><div class="k">Calls Analyzed</div><div class="v">'+fmt(w.categorized)+'</div><div class="n">of '+fmt(w.answered)+' answered calls</div></div>'+
+        '<div class="card"><div class="k">Top Reason</div><div class="v" style="font-size:18px;">'+topReason+'</div><div class="n">'+(w.categorized?Math.round(100*w.topics[topReason]/w.categorized):0)+'% of analyzed calls</div></div>';
+      var rows = TOPIC_ORDER.slice().sort(function(a,b){ return w.topics[b]-w.topics[a]; });
+      document.getElementById('rfcTbl').innerHTML = rows.map(function(t){
+        var v=w.topics[t], share=w.categorized?Math.round(100*v/w.categorized):0;
+        return '<tr><td>'+t+'</td><td>'+fmt(v)+'</td><td>'+share+'%</td></tr>';
+      }).join('');
+      document.getElementById('rfcNote').textContent = 'Shares are of ' + fmt(w.categorized) + ' analyzed calls; a call can reflect more than one reason, so shares don’t sum to 100%.';
+    }
+    document.querySelectorAll('.winbtn').forEach(function(b){ b.addEventListener('click', function(){ curWin = b.getAttribute('data-w'); render(); }); });
+    render();
+  })();
+  </script>
   
 </div>
 
@@ -225,8 +285,8 @@
   var Z=function(){return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];};
   var VOFF={'8/28':[1,0,0,0,0,0,1,5,8,19,13,17,11,9,14,12,10,5,3,4,0,0,2,3],'8/29':[1,1,0,0,0,0,0,3,2,4,10,5,5,4,5,4,2,6,0,0,0,0,0,0],'8/30':[0,0,0,0,0,0,0,1,3,2,4,4,2,4,6,4,2,3,3,1,2,0,0,0],'8/31':[0,0,0,0,0,1,1,4,5,10,14,24,20,23,6,11,11,11,8,9,3,0,1,0],'9/1':[0,0,0,0,0,0,2,3,14,11,19,12,17,11,15,12,9,6,11,4,2,2,1,1],'9/2':[0,0,0,0,0,0,4,2,14,13,13,12,15,6,10,3,4,6,8,3,4,1,0,1],'9/3':[0,0,0,0,1,2,5,5,10,11,13,13,16,15,22,7,4,4,3,8,1,1,0,0],'9/4':[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
   var CHOFF={};
-  var EREC={'8/28':[0,0,1,1,2,1,2,3,2,3,3,4,1,6,0,3,3,0,0,3,1,0,0,2],'8/29':[1,0,0,0,0,1,2,3,0,5,3,3,1,1,3,1,0,0,1,2,0,0,0,0],'8/30':[0,0,0,0,0,1,3,2,3,10,2,3,1,1,2,4,2,1,2,0,1,1,0,0],'8/31':[0,0,0,1,1,4,6,4,4,3,2,9,2,3,1,0,4,1,3,1,2,0,0,1],'9/1':[0,1,1,0,2,0,3,3,4,6,1,1,2,2,1,1,1,2,2,4,0,0,1,1],'9/2':[1,0,3,1,2,5,5,1,4,5,1,3,3,4,7,0,3,1,5,2,0,0,0,0],'9/3':[0,0,1,1,3,1,4,7,6,3,4,2,4,3,3,5,2,2,0,1,0,1,0,0],'9/4':[0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
-  var ECLO={'8/28':[0,0,1,1,1,0,2,3,5,1,3,4,4,4,2,3,3,1,2,2,1,0,0,1],'8/29':[0,0,0,0,1,1,4,1,2,2,3,3,2,3,4,0,1,0,1,1,1,0,0,0],'8/30':[0,0,0,1,0,1,3,2,3,6,3,2,0,3,3,3,2,3,0,0,0,0,0,0],'8/31':[0,0,0,1,2,2,6,6,3,1,4,5,4,4,2,0,2,1,8,2,1,1,0,0],'9/1':[0,1,0,1,1,2,1,4,5,4,3,2,2,4,0,1,1,2,0,7,1,0,0,1],'9/2':[0,0,0,0,6,3,3,2,3,10,0,3,8,3,10,1,1,2,4,2,0,0,0,0],'9/3':[0,0,0,1,4,3,6,4,8,2,1,5,7,1,6,6,5,3,4,2,1,1,1,0],'9/4':[0,0,0,0,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+  var EREC={'8/28':[0,0,1,1,2,1,2,3,2,3,3,4,1,6,0,3,3,0,0,3,1,0,0,2],'8/29':[1,0,0,0,0,1,2,3,0,5,3,3,1,1,3,1,0,0,1,2,0,0,0,0],'8/30':[0,0,0,0,0,1,3,2,3,10,2,3,1,1,2,4,2,1,2,0,1,1,0,0],'8/31':[0,0,0,1,1,4,6,4,4,3,2,9,2,3,1,0,4,1,3,1,2,0,0,1],'9/1':[0,1,1,0,2,0,3,3,4,6,1,1,2,2,1,1,1,2,2,4,0,0,1,1],'9/2':[1,0,3,1,2,5,5,1,4,5,1,3,3,4,7,0,3,1,5,2,0,0,0,0],'9/3':[0,0,1,1,3,1,4,7,6,3,4,2,4,3,3,5,2,2,0,1,0,1,0,0],'9/4':[0,0,0,0,0,1,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+  var ECLO={'8/28':[0,0,1,1,1,0,2,3,5,1,3,4,4,4,2,3,3,1,2,2,1,0,0,1],'8/29':[0,0,0,0,1,1,4,1,2,2,3,3,2,3,4,0,1,0,1,1,1,0,0,0],'8/30':[0,0,0,1,0,1,3,2,3,6,3,2,0,3,3,3,2,3,0,0,0,0,0,0],'8/31':[0,0,0,1,2,2,6,6,3,1,4,5,4,4,2,0,2,1,8,2,1,1,0,0],'9/1':[0,1,0,1,1,2,1,4,5,4,3,2,2,4,0,1,1,2,0,7,1,0,0,1],'9/2':[0,0,0,0,6,3,3,2,3,10,0,3,8,3,10,1,1,2,4,2,0,0,0,0],'9/3':[0,0,0,1,4,3,6,4,8,2,1,5,7,1,6,6,5,3,4,2,1,1,1,0],'9/4':[0,0,0,0,2,2,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
   var hrs=[]; for(var h=0;h<24;h++){hrs.push((h%12===0?12:h%12)+(h<12?'a':'p'));}
   var sum=function(a){return a.reduce(function(x,y){return x+y;},0);};
   var xh={grid:{display:false},ticks:{color:mut,font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){return i%3===0?hrs[i]:'';}}};
