@@ -54,15 +54,15 @@
 <body>
 <div class="wrap">
   <h1>XMD Wellness — Patient Support Performance</h1>
-  <div class="sub">Aug 28–Sep 3, 2026 · Voice · Email · XMD Wellness · Central Time · <b id="hdrStamp">updated 10:20am CDT</b></div>
+  <div class="sub">Aug 28–Sep 3, 2026 · Voice · Email · XMD Wellness · Central Time · <b id="hdrStamp">updated 11:59am CDT</b></div>
   
   <div id="pane-sum">
 
   <div class="sec" style="border-color:var(--amb);">Today so far · Fri Sep 04 <span style="font-weight:400;color:var(--amb);font-size:13px;">— in progress</span></div>
   <div class="grid kpis">
     <div class="card"><div class="k">Voice — calls</div><div class="v" id="tvV">1</div><div class="n" id="tvVn">as of ~3a CT</div></div>
-    <div class="card"><div class="k">Email — received</div><div class="v" id="keREC">7</div><div class="n" id="keLat">as of ~9:30a CT</div></div>
-    <div class="card"><div class="k">Email — open backlog</div><div class="v">1</div><div class="n">as of ~9:30a CT</div></div>
+    <div class="card"><div class="k">Email — received</div><div class="v" id="keREC">12</div><div class="n" id="keLat">as of ~11a CT</div></div>
+    <div class="card"><div class="k">Email — open backlog</div><div class="v">2</div><div class="n">as of ~11a CT</div></div>
     
   </div>
 
@@ -108,12 +108,12 @@
     <div><div class="lbl" style="margin-top:0;">Inbound Volume by Day</div><div class="cbox"><canvas id="c1"></canvas></div></div>
     <div><div class="lbl" style="margin-top:0;">Answered ≤30s by Day (Target 80%)</div><div class="cbox"><canvas id="c2"></canvas></div></div>
   </div>
-  <div class="note">* partial day — voice to <span id="vLat2">~3a CT</span> · email to <span class="eLat">~9:30a CT</span></div>
+  <div class="note">* partial day — voice to <span id="vLat2">~3a CT</span> · email to <span class="eLat">~11a CT</span></div>
 
-  <div class="sec">Email <span style="font-weight:400;color:var(--mut);font-size:12px;" id="eStamp">· updated through ~9:30a CT</span></div>
+  <div class="sec">Email <span style="font-weight:400;color:var(--mut);font-size:12px;" id="eStamp">· updated through ~11a CT</span></div>
   <div class="grid kpis">
-    <div class="card"><div class="k">Received</div><div class="v" id="keREC2">7</div><div class="n">Fri Sep 04 so far</div></div>
-    <div class="card"><div class="k">Resolved</div><div class="v" id="keRES">9</div><div class="n">Fri Sep 04 so far</div></div>
+    <div class="card"><div class="k">Received</div><div class="v" id="keREC2">12</div><div class="n">Fri Sep 04 so far</div></div>
+    <div class="card"><div class="k">Resolved</div><div class="v" id="keRES">13</div><div class="n">Fri Sep 04 so far</div></div>
     <!-- FRT stays on the MATURED window (d0..yesterday), NOT today: a ticket created an hour ago has not
          had 4 hours to be replied to, so scoring today understates it badly and build_dashboards' frt
          query deliberately stops at mature_end. Today would read "—" forever. -->
@@ -140,10 +140,10 @@
       <tr><td>Wed 9/2</td><td>56</td><td>61</td><td class="grn">-5</td><td class="grn">98%</td></tr>
       <tr><td>Thu 9/3</td><td>53</td><td>71</td><td class="grn">-18</td><td class="grn">98%</td></tr>
       <tr class="tot"><td>Aug 28–Sep 3</td><td>307</td><td>339</td><td>-32</td><td class="grn">96%</td></tr>
-      <tr class="amb" id="eTodayRow"><td>Fri 9/4*</td><td>7</td><td>9</td><td>-2</td><td>—</td></tr>
+      <tr class="amb" id="eTodayRow"><td>Fri 9/4*</td><td>12</td><td>13</td><td>-1</td><td>—</td></tr>
     </tbody>
   </table>
-  <div class="note">* partial day — email to <span class="eLat">~9:30a CT</span></div>
+  <div class="note">* partial day — email to <span class="eLat">~11a CT</span></div>
 
   
 
@@ -237,6 +237,17 @@
   })();
   </script>
   
+
+  
+  <div class="sec">Repeat Patient Contacts</div>
+  <a href="https://docs.google.com/spreadsheets/d/1ub2WR-tqUAXHlJIWL6adZnaHAdEucstE3130dISgg5s/edit?ouid=117762781490897147772" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:inherit;">
+    <div class="card" style="max-width:420px;">
+      <div class="k">Repeat Contact Report</div>
+      <div class="v" style="font-size:15px;">Rolling 14-day list &rarr;</div>
+      <div class="n">Patients with 5+ contacts across phone and email. Refreshes daily. Opens in Google Sheets (restricted access).</div>
+    </div>
+  </a>
+  
 </div>
 
 <details class="meth">
@@ -285,8 +296,8 @@
   var Z=function(){return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];};
   var VOFF={'8/28':[1,0,0,0,0,0,1,5,8,19,13,17,11,9,14,12,10,5,3,4,0,0,2,3],'8/29':[1,1,0,0,0,0,0,3,2,4,10,5,5,4,5,4,2,6,0,0,0,0,0,0],'8/30':[0,0,0,0,0,0,0,1,3,2,4,4,2,4,6,4,2,3,3,1,2,0,0,0],'8/31':[0,0,0,0,0,1,1,4,5,10,14,24,20,23,6,11,11,11,8,9,3,0,1,0],'9/1':[0,0,0,0,0,0,2,3,14,11,19,12,17,11,15,12,9,6,11,4,2,2,1,1],'9/2':[0,0,0,0,0,0,4,2,14,13,13,12,15,6,10,3,4,6,8,3,4,1,0,1],'9/3':[0,0,0,0,1,2,5,5,10,11,13,13,16,15,22,7,4,4,3,8,1,1,0,0],'9/4':[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
   var CHOFF={};
-  var EREC={'8/28':[0,0,1,1,2,1,2,3,2,3,3,4,1,6,0,3,3,0,0,3,1,0,0,2],'8/29':[1,0,0,0,0,1,2,3,0,5,3,3,1,1,3,1,0,0,1,2,0,0,0,0],'8/30':[0,0,0,0,0,1,3,2,3,10,2,3,1,1,2,4,2,1,2,0,1,1,0,0],'8/31':[0,0,0,1,1,4,6,4,4,3,2,9,2,3,1,0,4,1,3,1,2,0,0,1],'9/1':[0,1,1,0,2,0,3,3,4,6,1,1,2,2,1,1,1,2,2,4,0,0,1,1],'9/2':[1,0,3,1,2,5,5,1,4,5,1,3,3,4,7,0,3,1,5,2,0,0,0,0],'9/3':[0,0,1,1,3,1,4,7,6,3,4,2,4,3,3,5,2,2,0,1,0,1,0,0],'9/4':[0,0,0,0,0,1,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
-  var ECLO={'8/28':[0,0,1,1,1,0,2,3,5,1,3,4,4,4,2,3,3,1,2,2,1,0,0,1],'8/29':[0,0,0,0,1,1,4,1,2,2,3,3,2,3,4,0,1,0,1,1,1,0,0,0],'8/30':[0,0,0,1,0,1,3,2,3,6,3,2,0,3,3,3,2,3,0,0,0,0,0,0],'8/31':[0,0,0,1,2,2,6,6,3,1,4,5,4,4,2,0,2,1,8,2,1,1,0,0],'9/1':[0,1,0,1,1,2,1,4,5,4,3,2,2,4,0,1,1,2,0,7,1,0,0,1],'9/2':[0,0,0,0,6,3,3,2,3,10,0,3,8,3,10,1,1,2,4,2,0,0,0,0],'9/3':[0,0,0,1,4,3,6,4,8,2,1,5,7,1,6,6,5,3,4,2,1,1,1,0],'9/4':[0,0,0,0,2,2,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+  var EREC={'8/28':[0,0,1,1,2,1,2,3,2,3,3,4,1,6,0,3,3,0,0,3,1,0,0,2],'8/29':[1,0,0,0,0,1,2,3,0,5,3,3,1,1,3,1,0,0,1,2,0,0,0,0],'8/30':[0,0,0,0,0,1,3,2,3,10,2,3,1,1,2,4,2,1,2,0,1,1,0,0],'8/31':[0,0,0,1,1,4,6,4,4,3,2,9,2,3,1,0,4,1,3,1,2,0,0,1],'9/1':[0,1,1,0,2,0,3,3,4,6,1,1,2,2,1,1,1,2,2,4,0,0,1,1],'9/2':[1,0,3,1,2,5,5,1,4,5,1,3,3,4,7,0,3,1,5,2,0,0,0,0],'9/3':[0,0,1,1,3,1,4,7,6,3,4,2,4,3,3,5,2,2,0,1,0,1,0,0],'9/4':[0,0,0,0,0,1,1,5,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+  var ECLO={'8/28':[0,0,1,1,1,0,2,3,5,1,3,4,4,4,2,3,3,1,2,2,1,0,0,1],'8/29':[0,0,0,0,1,1,4,1,2,2,3,3,2,3,4,0,1,0,1,1,1,0,0,0],'8/30':[0,0,0,1,0,1,3,2,3,6,3,2,0,3,3,3,2,3,0,0,0,0,0,0],'8/31':[0,0,0,1,2,2,6,6,3,1,4,5,4,4,2,0,2,1,8,2,1,1,0,0],'9/1':[0,1,0,1,1,2,1,4,5,4,3,2,2,4,0,1,1,2,0,7,1,0,0,1],'9/2':[0,0,0,0,6,3,3,2,3,10,0,3,8,3,10,1,1,2,4,2,0,0,0,0],'9/3':[0,0,0,1,4,3,6,4,8,2,1,5,7,1,6,6,5,3,4,2,1,1,1,0],'9/4':[0,0,0,0,2,2,1,3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
   var hrs=[]; for(var h=0;h<24;h++){hrs.push((h%12===0?12:h%12)+(h<12?'a':'p'));}
   var sum=function(a){return a.reduce(function(x,y){return x+y;},0);};
   var xh={grid:{display:false},ticks:{color:mut,font:{size:10},maxRotation:0,autoSkip:false,callback:function(v,i){return i%3===0?hrs[i]:'';}}};
