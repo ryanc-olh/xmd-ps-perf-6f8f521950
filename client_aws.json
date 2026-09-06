@@ -1,7 +1,7 @@
 {
  "client": "xmd",
- "generated_at": "2026-09-06T01:25:22-05:00",
- "generated_at_ct": "1:25am",
+ "generated_at": "2026-09-06T05:28:17-05:00",
+ "generated_at_ct": "5:28am",
  "window": {
   "start": "2026-08-30",
   "end": "2026-09-05"
@@ -1749,6 +1749,11 @@
     0
    ]
   ]
+ },
+ "email_live": {
+  "rec": null,
+  "clo": null,
+  "asof_ct": "5:23am"
  },
  "errors": [],
  "ok": true
