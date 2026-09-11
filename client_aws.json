@@ -1,7 +1,7 @@
 {
  "client": "xmd",
- "generated_at": "2026-09-11T09:18:39-05:00",
- "generated_at_ct": "9:18am",
+ "generated_at": "2026-09-11T13:46:29-05:00",
+ "generated_at_ct": "1:46pm",
  "window": {
   "start": "2026-09-04",
   "end": "2026-09-10"
@@ -209,17 +209,17 @@
    }
   },
   "today": {
-   "offered": 17,
-   "answered": 15,
-   "offered_live": 17,
-   "answered_live": 15,
-   "answered_in_sl": 15,
-   "short_abandoned": 0,
-   "sl_den": 17,
-   "sl": 88.24,
-   "sl_answered_only": 88.24,
-   "asa_s": 8.6,
-   "aht_s": 526.3
+   "offered": 80,
+   "answered": 84,
+   "offered_live": 80,
+   "answered_live": 84,
+   "answered_in_sl": 70,
+   "short_abandoned": 1,
+   "sl_den": 80,
+   "sl": 88.75,
+   "sl_answered_only": 88.61,
+   "asa_s": 15.8,
+   "aht_s": 599.1
   }
  },
  "hourly_voice": {
@@ -1832,49 +1832,49 @@
     11
    ],
    [
-    2,
-    2,
-    14022,
-    2,
-    2,
+    13,
+    12,
+    134010,
+    13,
+    12,
     0,
-    2
+    12
    ],
    [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    17,
+    14,
+    518227,
+    17,
+    17,
+    1,
+    17
    ],
    [
+    13,
+    8,
+    342223,
+    13,
+    11,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    11
    ],
    [
+    14,
+    11,
+    110256,
+    14,
+    13,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    13
    ],
    [
+    14,
+    12,
+    110407,
+    14,
+    12,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    12
    ],
    [
     0,
@@ -1971,7 +1971,7 @@
  "email_live": {
   "rec": null,
   "clo": null,
-  "asof_ct": "9:10am"
+  "asof_ct": "1:40pm"
  },
  "errors": [],
  "ok": true
